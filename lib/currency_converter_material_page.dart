@@ -17,6 +17,12 @@ class _CurrencyConverterMaterialPageState
   Widget build(BuildContext context) {
     final TextEditingController textEditingController = TextEditingController();
 
+    void convertToINR() {
+      setState(() {
+        result = double.parse(textEditingController.text) * 81;
+      });
+    }
+
     const outlineBorder = OutlineInputBorder(
       borderSide: BorderSide(
         width: 2.0,
@@ -35,20 +41,20 @@ class _CurrencyConverterMaterialPageState
         leading: const Icon(Icons.monetization_on),
       ),
       backgroundColor: Colors.blueGrey,
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            "INR $result",
-            style: const TextStyle(
-              fontSize: 35,
-              fontWeight: FontWeight.bold,
-              color: Color.fromARGB(255, 255, 255, 255),
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              "INR ${result != 0 ? result.toStringAsFixed(2) : result.toStringAsFixed(0)}",
+              style: const TextStyle(
+                fontSize: 35,
+                fontWeight: FontWeight.bold,
+                color: Color.fromARGB(255, 255, 255, 255),
+              ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: TextField(
+            TextField(
               controller: textEditingController,
               style: const TextStyle(
                 color: Color.fromARGB(255, 0, 0, 0),
@@ -74,15 +80,9 @@ class _CurrencyConverterMaterialPageState
               ),
               keyboardType: TextInputType.number,
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: TextButton(
-              onPressed: () {
-                setState(() {
-                  result = double.parse(textEditingController.text) * 81;
-                });
-              },
+            const SizedBox(height: 10),
+            TextButton(
+              onPressed: convertToINR,
               style: TextButton.styleFrom(
                 backgroundColor: Colors.black54,
                 foregroundColor: Colors.white,
@@ -94,9 +94,9 @@ class _CurrencyConverterMaterialPageState
                 ),
               ),
               child: const Text("Convert"),
-            ),
-          )
-        ],
+            )
+          ],
+        ),
       ),
     );
   }
