@@ -12,17 +12,21 @@ class CurrencyConverterMaterialPage extends StatefulWidget {
 class _CurrencyConverterMaterialPageState
     extends State<CurrencyConverterMaterialPage> {
   double result = 0.0;
+  final TextEditingController textEditingController = TextEditingController();
+
+  void convertToINR() {
+    result = double.parse(textEditingController.text) * 83.33;
+    setState(() {});
+  }
+
+  @override
+  void dispose() {
+    textEditingController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    final TextEditingController textEditingController = TextEditingController();
-
-    void convertToINR() {
-      setState(() {
-        result = double.parse(textEditingController.text) * 81;
-      });
-    }
-
     const outlineBorder = OutlineInputBorder(
       borderSide: BorderSide(
         width: 2.0,
